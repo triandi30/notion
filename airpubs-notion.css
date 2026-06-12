@@ -181,3 +181,12 @@
         align-items: flex-start;
     }
 }
+
+/* Hide original OJS galleys completely */
+.obj_article_summary .galleys_links {
+    display: none !important;
+}
+
+.obj_article_summary .meta .pages {
+    display: none !important;
+}
