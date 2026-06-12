@@ -62,9 +62,9 @@
             }
             bottomHtml += '</div></div>';
 
-            // 4. NOW hide originals
-            if (pagesDiv) pagesDiv.style.display = 'none';
-            if (galleysList) galleysList.style.display = 'none';
+            // 4. NOW hide originals - remove from DOM completely
+            if (pagesDiv && pagesDiv.parentNode) pagesDiv.parentNode.removeChild(pagesDiv);
+            if (galleysList && galleysList.parentNode) galleysList.parentNode.removeChild(galleysList);
 
             // 5. Insert new content
             var insertPoint = galleysList || article.querySelector('.meta');
