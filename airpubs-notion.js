@@ -6,6 +6,11 @@
     'use strict';
 
     function init() {
+        // Inject navigation color via JS (bypass CSS blocking)
+        var navStyle = document.createElement('style');
+        navStyle.textContent = '.pkp_navigation_primary_row { background: #c934a9 !important; }';
+        document.head.appendChild(navStyle);
+
         var articles = document.querySelectorAll('.obj_article_summary');
         if (!articles.length) return;
 
