@@ -114,12 +114,12 @@
                     bottomHtml += '<a href="' + galleys[g].href + '" class="airpubs-galley-btn"><i class="fas fa-file-pdf"></i> ' + galleys[g].label + '</a>';
                 }
                 bottomHtml += '</div>';
-                if (pages) {
-                    bottomHtml += '<span class="airpubs-pages"><i class="far fa-file-alt"></i> ' + pages + '</span>';
-                }
-                bottomHtml += '</div>';
                 if (doiText) {
                     bottomHtml += '<div class="airpubs-doi"><a href="https://doi.org/' + doiText + '" target="_blank"><span class="airpubs-doi-badge">DOI</span> ' + doiText + '</a></div>';
+                }
+                bottomHtml += '</div>';
+                if (pages) {
+                    bottomHtml += '<div style="text-align:right;margin-top:6px"><span class="airpubs-pages"><i class="far fa-file-alt"></i> ' + pages + '</span></div>';
                 }
                 bottomHtml += '</div>';
 
