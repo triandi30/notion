@@ -91,8 +91,8 @@
             metaHtml += '</div>';
 
             // Hide original pages and galleys
-            if (pagesDiv) pagesDiv.style.display = 'none';
-            if (galleysList) galleysList.style.display = 'none';
+            if (pagesDiv) pagesDiv.style.cssText = 'display:none!important;visibility:hidden!important;height:0!important;overflow:hidden!important;';
+            if (galleysList) galleysList.style.cssText = 'display:none!important;visibility:hidden!important;height:0!important;overflow:hidden!important;';
 
             // Insert after meta div
             var metaContainer = article.querySelector('.meta');
