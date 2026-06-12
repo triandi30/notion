@@ -47,6 +47,12 @@
             // Stats row
             metaHtml += '<div class="airpubs-meta-row">';
             metaHtml += '<div class="airpubs-stats">';
+            if (galleysList) {
+                var gLinks = galleysList.querySelectorAll('a');
+                gLinks.forEach(function(g) {
+                    metaHtml += '<span class="airpubs-stat"><i class="fas fa-download"></i> ' + g.textContent.trim() + '</span>';
+                });
+            }
             metaHtml += '</div>';
             if (pages) {
                 metaHtml += '<span class="airpubs-pages"><i class="far fa-file-alt"></i> ' + pages + '</span>';
