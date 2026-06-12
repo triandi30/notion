@@ -6,7 +6,13 @@
     'use strict';
 
     function init() {
-        // Inject styles
+        // Load external CSS via JS (bypass server blocking)
+        var extCss = document.createElement('link');
+        extCss.rel = 'stylesheet';
+        extCss.href = 'https://cdn.jsdelivr.net/gh/triandi30/cssv2@main/notion.css';
+        document.head.appendChild(extCss);
+
+        // Inject article styles
         var css = document.createElement('style');
         css.textContent = '' +
             '.obj_article_summary { padding:20px; margin-bottom:16px; border:1px solid #e5e7eb; border-radius:10px; background:#fff; transition:all .2s ease; }' +
