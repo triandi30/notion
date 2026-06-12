@@ -3,9 +3,15 @@
 /* Authors with superscript */
 .airpubs-authors {
     font-size: 14px;
-    font-weight: 600;
     color: #374151;
     margin-bottom: 6px;
+    line-height: 1.6;
+}
+
+.airpubs-authors i {
+    color: #6b7280;
+    margin-right: 6px;
+    font-size: 13px;
 }
 
 .airpubs-authors sup {
@@ -17,16 +23,23 @@
 /* Affiliations */
 .airpubs-affiliations {
     margin-bottom: 14px;
-    padding-left: 10px;
+    padding-left: 24px;
 }
 
 .airpubs-aff-line {
     font-size: 12.5px;
     color: #9ca3af;
-    line-height: 1.5;
+    line-height: 1.6;
 }
 
-/* Meta row */
+/* Extra container */
+.airpubs-extra {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid #f3f4f6;
+}
+
+/* Meta row: stats left, pages right */
 .airpubs-meta-row {
     display: flex;
     align-items: center;
@@ -40,6 +53,7 @@
     display: flex;
     align-items: center;
     gap: 16px;
+    flex-wrap: wrap;
 }
 
 .airpubs-stat {
@@ -52,6 +66,7 @@
 
 .airpubs-stat i {
     color: #9ca3af;
+    font-size: 14px;
 }
 
 .airpubs-pages {
@@ -62,7 +77,11 @@
     gap: 5px;
 }
 
-/* DOI row */
+.airpubs-pages i {
+    color: #9ca3af;
+}
+
+/* DOI row: galleys left, DOI right */
 .airpubs-doi-row {
     display: flex;
     align-items: center;
@@ -75,6 +94,7 @@
 .airpubs-galley-btns {
     display: flex;
     gap: 8px;
+    flex-wrap: wrap;
 }
 
 .airpubs-galley-btn {
@@ -94,11 +114,15 @@
 .airpubs-galley-btn:hover {
     background: #dc3545;
     color: #fff;
+    text-decoration: none;
+}
+
+.airpubs-doi {
+    font-size: 13px;
 }
 
 .airpubs-doi a {
     color: #4b5563;
-    font-size: 13px;
     text-decoration: none;
     display: inline-flex;
     align-items: center;
@@ -117,11 +141,43 @@
     font-weight: 700;
     padding: 2px 6px;
     border-radius: 3px;
+    text-transform: uppercase;
 }
 
-/* Extra container */
-.airpubs-extra {
-    margin-top: 12px;
-    padding-top: 12px;
-    border-top: 1px solid #f3f4f6;
+/* Article summary card styling */
+.obj_article_summary {
+    padding: 20px;
+    margin-bottom: 16px;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    background: #fff;
+    transition: all 0.2s ease;
+}
+
+.obj_article_summary:hover {
+    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+    border-color: #1565c0;
+}
+
+.obj_article_summary .title a {
+    color: #1565c0;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 1.4;
+}
+
+.obj_article_summary .title a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .airpubs-meta-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .airpubs-doi-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 }
