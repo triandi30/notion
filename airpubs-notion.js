@@ -1,17 +1,23 @@
 /**
  * AiRPubs OJS Enhancement Script
- * For OJS 3.2.x - No fetch (server blocks cross-requests)
- * Works with data available on the page only
+ * For OJS 3.2.x - Universal (works on any journal)
+ * No fetch, no hardcoded DOI
  */
 (function() {
     'use strict';
 
     document.addEventListener('DOMContentLoaded', function() {
+
+        // Force hide all original galleys via style injection
+        var style = document.createElement('style');
+        style.textContent = '.obj_article_summary .galleys_links, .obj_article_summary .meta .pages { display:none!important; visibility:hidden!important; height:0!important; overflow:hidden!important; margin:0!important; padding:0!important; }';
+        document.head.appendChild(style);
+
         var articles = document.querySelectorAll('.obj_article_summary');
         if (!articles.length) return;
 
         articles.forEach(function(article) {
-            var titleLink = article.querySelector('.title a');
+            var titleLink = article.querySelector('.title a') || article.querySelector('h3 a') || article.querySelector('h4 a');
             if (!titleLink) return;
 
             var articleUrl = titleLink.getAttribute('href');
@@ -35,21 +41,19 @@
                 }
             }
 
-            // Get article ID from URL for DOI
-            var articleId = articleUrl.match(/\/view\/(\d+)/);
-
-            // Build enhanced meta section
+            // Get pages
             var pages = pagesDiv ? pagesDiv.textContent.trim() : '';
 
+            // Build enhanced meta section
             var metaHtml = '<div class="airpubs-extra">';
 
-            // Stats row
-            metaHtml += '<div class="airpubs-meta-row">';
-            metaHtml += '<div class="airpubs-stats">';
+            // Row: galley buttons left, pages right
+            metaHtml += '<div class="airpubs-doi-row">';
+            metaHtml += '<div class="airpubs-galley-btns">';
             if (galleysList) {
                 var gLinks = galleysList.querySelectorAll('a');
                 gLinks.forEach(function(g) {
-                    metaHtml += '<span class="airpubs-stat"><i class="fas fa-download"></i> ' + g.textContent.trim() + '</span>';
+                    metaHtml += '<a href="' + g.getAttribute('href') + '" class="airpubs-galley-btn"><i class="fas fa-file-pdf"></i> ' + g.textContent.trim() + '</a>';
                 });
             }
             metaHtml += '</div>';
@@ -58,41 +62,11 @@
             }
             metaHtml += '</div>';
 
-            // Galley buttons + DOI row
-            metaHtml += '<div class="airpubs-doi-row">';
-            metaHtml += '<div class="airpubs-galley-btns">';
-            if (galleysList) {
-                var gLinks2 = galleysList.querySelectorAll('a');
-                gLinks2.forEach(function(g) {
-                    metaHtml += '<a href="' + g.getAttribute('href') + '" class="airpubs-galley-btn"><i class="fas fa-file-pdf"></i> ' + g.textContent.trim() + '</a>';
-                });
-            }
             metaHtml += '</div>';
 
-            // DOI from article URL pattern - auto detect journal path
-            if (articleId && articleId[1]) {
-                var journalPath = window.location.pathname.match(/\/index\.php\/([^\/]+)/);
-                var journalSlug = journalPath ? journalPath[1] : 'unknown';
-                // Try to get volume/issue from page
-                var volIssue = '';
-                var pageTitle = document.querySelector('h1, .current_issue_title');
-                if (pageTitle) {
-                    var volMatch = pageTitle.textContent.match(/Vol\.\s*(\d+)\s*No\.\s*(\d+)/i);
-                    if (volMatch) {
-                        volIssue = 'v' + volMatch[1] + 'i' + volMatch[2] + '.';
-                    }
-                }
-                var doiPrefix = '10.12928/' + journalSlug + '.';
-                var doiLink = 'https://doi.org/' + doiPrefix + volIssue + articleId[1];
-                var doiDisplay = doiPrefix + volIssue + articleId[1];
-                metaHtml += '<div class="airpubs-doi"><a href="' + doiLink + '" target="_blank"><span class="airpubs-doi-badge">DOI</span> ' + doiDisplay + '</a></div>';
-            }
-            metaHtml += '</div>';
-            metaHtml += '</div>';
-
-            // Hide original pages and galleys
-            if (pagesDiv) pagesDiv.style.cssText = 'display:none!important;visibility:hidden!important;height:0!important;overflow:hidden!important;';
-            if (galleysList) galleysList.style.cssText = 'display:none!important;visibility:hidden!important;height:0!important;overflow:hidden!important;';
+            // Remove original elements from DOM
+            if (galleysList) galleysList.remove();
+            if (pagesDiv) pagesDiv.remove();
 
             // Insert after meta div
             var metaContainer = article.querySelector('.meta');
@@ -104,7 +78,6 @@
         });
 
         // === Enhancement for Article Detail Page ===
-        // Add superscript to authors on article detail page
         var detailAuthors = document.querySelector('.obj_article_details .item.authors ul.authors');
         if (detailAuthors) {
             var lis = detailAuthors.querySelectorAll('li');
