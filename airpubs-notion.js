@@ -6,10 +6,29 @@
     'use strict';
 
     function init() {
-        // Inject navigation color via JS (bypass CSS blocking)
-        var navStyle = document.createElement('style');
-        navStyle.textContent = '.pkp_navigation_primary_row { background: #c934a9 !important; }';
-        document.head.appendChild(navStyle);
+        // Inject ALL styles via JS (external CSS blocked by server)
+        var css = document.createElement('style');
+        css.textContent = '' +
+            '.pkp_navigation_primary_row { background: #c934a9 !important; }' +
+            '.obj_article_summary { padding:20px; margin-bottom:16px; border:1px solid #e5e7eb; border-radius:10px; background:#fff; transition:all .2s ease; }' +
+            '.obj_article_summary:hover { box-shadow:0 4px 15px rgba(0,0,0,.06); border-color:#1565c0; }' +
+            '.obj_article_summary .title a { color:#1565c0; font-weight:700; font-size:15px; text-decoration:none; }' +
+            '.obj_article_summary .title a:hover { text-decoration:underline; }' +
+            '.airpubs-authors { font-size:14px; color:#374151; margin-bottom:6px; }' +
+            '.airpubs-authors sup { font-size:10px; color:#1565c0; font-weight:700; }' +
+            '.airpubs-affiliations { margin-bottom:14px; padding-left:10px; }' +
+            '.airpubs-aff-line { font-size:12.5px; color:#9ca3af; line-height:1.5; }' +
+            '.airpubs-extra { margin-top:12px; padding-top:12px; border-top:1px solid #f3f4f6; }' +
+            '.airpubs-doi-row { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; }' +
+            '.airpubs-galley-btns { display:flex; gap:8px; flex-wrap:wrap; }' +
+            '.airpubs-galley-btn { display:inline-flex; align-items:center; gap:5px; padding:6px 16px; border:1.5px solid #dc3545; border-radius:5px; font-size:12.5px; font-weight:600; color:#dc3545; text-decoration:none; transition:all .2s ease; }' +
+            '.airpubs-galley-btn:hover { background:#dc3545; color:#fff; text-decoration:none; }' +
+            '.airpubs-pages { font-size:13px; color:#6b7280; display:inline-flex; align-items:center; gap:5px; }' +
+            '.airpubs-doi a { color:#4b5563; font-size:13px; text-decoration:none; display:inline-flex; align-items:center; gap:6px; }' +
+            '.airpubs-doi a:hover { color:#1565c0; }' +
+            '.airpubs-doi-badge { display:inline-block; background:#f59e0b; color:#fff; font-size:10px; font-weight:700; padding:2px 6px; border-radius:3px; }' +
+            '';
+        document.head.appendChild(css);
 
         var articles = document.querySelectorAll('.obj_article_summary');
         if (!articles.length) return;
