@@ -183,10 +183,19 @@
 }
 
 /* Hide original OJS galleys completely */
-.obj_article_summary .galleys_links {
+.obj_article_summary .galleys_links,
+.obj_article_summary ul.galleys_links,
+.cmp_article_list .obj_article_summary .galleys_links,
+.pkp_structure_main .obj_article_summary .galleys_links {
     display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    overflow: hidden !important;
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
-.obj_article_summary .meta .pages {
+.obj_article_summary .meta .pages,
+.cmp_article_list .obj_article_summary .meta .pages {
     display: none !important;
 }
