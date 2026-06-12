@@ -37,7 +37,6 @@
 
             // Get article ID from URL for DOI
             var articleId = articleUrl.match(/\/view\/(\d+)/);
-            var doiPrefix = '10.12928/notion.';
 
             // Build enhanced meta section
             var pages = pagesDiv ? pagesDiv.textContent.trim() : '';
@@ -70,10 +69,22 @@
             }
             metaHtml += '</div>';
 
-            // DOI from article URL pattern
+            // DOI from article URL pattern - auto detect journal path
             if (articleId && articleId[1]) {
-                var doiLink = 'https://doi.org/' + doiPrefix + 'v8i1.' + articleId[1];
-                var doiDisplay = doiPrefix + 'v8i1.' + articleId[1];
+                var journalPath = window.location.pathname.match(/\/index\.php\/([^\/]+)/);
+                var journalSlug = journalPath ? journalPath[1] : 'unknown';
+                // Try to get volume/issue from page
+                var volIssue = '';
+                var pageTitle = document.querySelector('h1, .current_issue_title');
+                if (pageTitle) {
+                    var volMatch = pageTitle.textContent.match(/Vol\.\s*(\d+)\s*No\.\s*(\d+)/i);
+                    if (volMatch) {
+                        volIssue = 'v' + volMatch[1] + 'i' + volMatch[2] + '.';
+                    }
+                }
+                var doiPrefix = '10.12928/' + journalSlug + '.';
+                var doiLink = 'https://doi.org/' + doiPrefix + volIssue + articleId[1];
+                var doiDisplay = doiPrefix + volIssue + articleId[1];
                 metaHtml += '<div class="airpubs-doi"><a href="' + doiLink + '" target="_blank"><span class="airpubs-doi-badge">DOI</span> ' + doiDisplay + '</a></div>';
             }
             metaHtml += '</div>';
