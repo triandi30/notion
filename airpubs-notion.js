@@ -18,9 +18,9 @@
             '.airpubs-authors sup { font-size:10px; color:#1565c0; font-weight:700; }' +
             '.airpubs-affiliations { margin-bottom:14px; padding-left:24px; }' +
             '.airpubs-aff-line { font-size:12.5px; color:#9ca3af; line-height:1.6; }' +
-            '.airpubs-extra { margin-top:12px; padding-top:12px; border-top:1px solid #f3f4f6; }' +
-            '.airpubs-doi-row { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; }' +
-            '.airpubs-galley-btns { display:flex; gap:8px; flex-wrap:wrap; }' +
+            '.airpubs-extra { margin-top:12px; padding-top:12px; border-top:1px solid #f3f4f6; overflow:hidden; }' +
+            '.airpubs-doi-row { display:flex!important; align-items:center!important; justify-content:space-between!important; flex-wrap:nowrap!important; gap:10px; }' +
+            '.airpubs-galley-btns { display:flex!important; gap:8px; flex-wrap:wrap; flex-shrink:0; }' +
             '.airpubs-galley-btn { display:inline-flex; align-items:center; gap:5px; padding:6px 16px; border:1.5px solid #dc3545; border-radius:5px; font-size:12.5px; font-weight:600; color:#dc3545; text-decoration:none; transition:all .2s ease; }' +
             '.airpubs-galley-btn:hover { background:#dc3545; color:#fff; text-decoration:none; }' +
             '.airpubs-pages { font-size:13px; color:#6b7280; display:inline-flex; align-items:center; gap:5px; }' +
